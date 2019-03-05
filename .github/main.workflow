@@ -22,6 +22,6 @@ action "codecov" {
 
 action "coveralls" {
   needs = ["codecov"]
-  uses = "actions/npm@master"
+  uses = "docker://alpine"
   runs = ["sh", "-c", "cat ./coverage/lcov.info"]
 }
