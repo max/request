@@ -1,5 +1,6 @@
 workflow "build & test" {
   on = "push"
+  resolves = "codecov"
 }
 
 action "build" {
@@ -8,16 +9,19 @@ action "build" {
 }
 
 action "test-cov" {
+  needs = ["build"]
   uses = "actions/npm@master"
   args = ["run", "test-cov"]
 }
 
 action "codecov" {
+  needs = ["test-cov"]
   uses = "actions/npm@master"
   args = ["codecov"]
 }
 
 action "coveralls" {
+  needs = ["codecov"]
   uses = "actions/npm@master"
   runs = ["sh", "-c", "cat ./coverage/lcov.info"]
 }
