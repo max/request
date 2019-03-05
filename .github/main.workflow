@@ -17,7 +17,7 @@ action "test-cov" {
 action "codecov" {
   needs = ["test-cov"]
   uses = "actions/npm@master"
-  args = ["codecov"]
+  runs = ["codecov"]
 }
 
 action "coveralls" {
