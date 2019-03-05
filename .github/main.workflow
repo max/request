@@ -16,8 +16,10 @@ action "test-cov" {
 
 action "codecov" {
   needs = ["test-cov"]
-  uses = "actions/npm@master"
-  runs = ["codecov"]
+  uses = "docker://node"
+  runs = "npx"
+  args = "codecov"
+  secrets = ["CODECOV_TOKEN"]
 }
 
 action "coveralls" {
